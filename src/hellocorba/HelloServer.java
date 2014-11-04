@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hellocorba.HelloCorba;
-import HelloCorba.*;
+package hellocorba;
+import HelloCorba._HelloImplBase;
 import org.omg.CosNaming.*;
 import org.omg.CosNaming.NamingContextPackage.*;
 import org.omg.CORBA.*;
