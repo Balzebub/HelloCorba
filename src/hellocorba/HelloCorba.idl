@@ -2,6 +2,7 @@ module HelloCorba
 {
   interface Hello
   {
-    string sayHello();
+  string sayHello();
+  oneway void shutdown();
   };
 };

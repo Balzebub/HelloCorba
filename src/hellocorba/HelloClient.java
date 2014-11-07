@@ -1,41 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package hellocorba;
-import HelloCorba.Hello;
-import HelloCorba.HelloHelper;
+import HelloCorba.*;
 import org.omg.CosNaming.*;
+import org.omg.CosNaming.NamingContextPackage.*;
 import org.omg.CORBA.*;
 
-/**
- *
- * @author Elveon
- */
 public class HelloClient {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        try{
+    static Hello hello;
+
+    public static void main(String args[]) {
+        try {
+            // ORB erstellen und initialisieren
             ORB orb = ORB.init(args, null);
             
-            org.omg.CORBA.Object objref = orb.resolve_initial_references("NameService");
-            NamingContext ncRef = NamingContextHelper.narrow(objref);
+            org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
             
-            NameComponent nc = new NameComponent("Hello", "");
-            NameComponent path[] = {nc};
+            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
+
+            // Namensauflösung der Objektreferenz
+            String name = "Hello";
+            hello = HelloHelper.narrow(ncRef.resolve_str(name));
+
+            // DEBUG System.out.println("Objekt vom Server erhalten" + hello);
+            System.out.println(hello.sayHello());
             
-            Hello helloRef = HelloHelper.narrow(ncRef.resolve(path));
-            
-            String hello = helloRef.sayHello();
-            System.out.println(hello);
-            
-        }catch (Exception e){
-            
+            // beendet den Server
+            // hello.shutdown();
+
+        } catch (Exception e) {
+            System.out.println("ERROR : " + e);
+            e.printStackTrace(System.out);
         }
     }
-    
+
 }
