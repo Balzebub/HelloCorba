@@ -1,0 +1,1 @@
+idlj -fall HelloCorba.idl
